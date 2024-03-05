@@ -5,15 +5,11 @@ import ContactList from './ContactList/ContactList';
 import styles from './App.module.css';
 
 const App = () => {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
+  const [contacts, setContacts] = useState(() => {
     const localData = localStorage.getItem('contacts');
-    if (localData) {
-      setContacts(JSON.parse(localData));
-    }
-  }, []);
+    return localData ? JSON.parse(localData) : [];
+  });
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
